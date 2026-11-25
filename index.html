@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lego Reward Program</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Fredoka:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lego-red: #E3000B;
+      --lego-red-dark: #B80009;
+      --lego-yellow: #FFD500;
+      --lego-yellow-dark: #E6BF00;
+      --lego-blue: #0055BF;
+      --lego-green: #00B67A;
+      --bg-page: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-page);
+      /* Subtle LEGO stud texture in background */
+      background-image: radial-gradient(rgba(15, 23, 42, 0.035) 2px, transparent 2px);
+      background-size: 24px 24px;
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Announcement Bar */
+    .top-bar {
+      background-color: var(--lego-yellow);
+      color: #111827;
+      text-align: center;
+      padding: 9px 16px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .top-bar .star {
+      color: var(--lego-red);
+      font-size: 12px;
+    }
+
+    /* Brand Hero Header */
+    .hero-header {
+      background: linear-gradient(180deg, #E3000B 0%, #CC000A 100%);
+      color: #FFFFFF;
+      text-align: center;
+      padding: 34px 20px 36px;
+      border-bottom: 5px solid var(--lego-yellow);
+      position: relative;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Classic LEGO Square Emblem */
+    .lego-logo-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 78px;
+      height: 78px;
+      background-color: var(--lego-red);
+      border: 3px solid #FFFFFF;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .lego-logo-text {
+      font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 25px;
+      letter-spacing: 0.5px;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      -webkit-text-stroke: 1.4px #111111;
+      paint-order: stroke fill;
+      text-shadow: 0 2px 0 var(--lego-yellow), 0 3px 4px rgba(0, 0, 0, 0.35);
+      transform: rotate(-4deg);
+      user-select: none;
+    }
+
+    .program-subtitle {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.6px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 14px;
+    }
+
+    .member-pill {
+      display: inline-block;
+      padding: 5px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 213, 0, 0.65);
+      background-color: rgba(0, 0, 0, 0.16);
+      color: var(--lego-yellow);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 34px 20px 56px;
+    }
+
+    /* Deal Badge & Headline */
+    .offer-intro {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .deal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: var(--lego-yellow);
+      color: #111827;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 0 var(--lego-yellow-dark);
+    }
+
+    .main-headline {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .main-headline .amount {
+      color: var(--lego-red);
+    }
+
+    /* Eligibility Grid */
+    .eligibility-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .eligibility-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 15px 14px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+    }
+
+    .eligibility-tier {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+      color: var(--lego-blue);
+      margin-bottom: 4px;
+    }
+
+    .eligibility-status {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Section Divider */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: var(--border-color);
+    }
+
+    .section-divider span {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: #94A3B8;
+    }
+
+    /* Steps List */
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .step-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .step-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+    }
+
+    .step-number {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background-color: var(--lego-blue);
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 2px 0 #003E8C;
+    }
+
+    .step-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1E293B;
+    }
+
+    /* CTA Button */
+    .cta-wrapper {
+      margin-bottom: 38px;
+      text-align: center;
+    }
+
+    .cta-button {
+      display: block;
+      width: 100%;
+      background-color: var(--lego-red);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 19px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 0 var(--lego-red-dark), 0 10px 22px rgba(227, 0, 11, 0.26);
+      transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+    }
+
+    .cta-button:hover {
+      background-color: #D1000A;
+      transform: translateY(-1px);
+      box-shadow: 0 5px 0 var(--lego-red-dark), 0 14px 26px rgba(227, 0, 11, 0.32);
+    }
+
+    .cta-button:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 var(--lego-red-dark), 0 6px 14px rgba(227, 0, 11, 0.22);
+    }
+
+    .cta-disclaimer {
+      margin-top: 12px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      margin-bottom: 40px;
+    }
+
+    .faq-heading {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      letter-spacing: -0.2px;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .faq-item {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.02);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 17px 20px;
+      text-align: left;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      color: #1E293B;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .faq-question:hover {
+      background-color: #F8FAFC;
+    }
+
+    .faq-chevron {
+      width: 16px;
+      height: 16px;
+      color: var(--lego-red);
+      flex-shrink: 0;
+      transition: transform 0.22s ease;
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease, padding 0.25s ease;
+      padding: 0 20px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 180px;
+      padding: 0 20px 18px;
+    }
+
+    /* Rating Footer */
+    .rating-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding-top: 8px;
+    }
+
+    .rating-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .stars-row {
+      display: inline-flex;
+      gap: 3px;
+    }
+
+    .star-box {
+      width: 20px;
+      height: 20px;
+      background-color: var(--lego-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+    }
+
+    .star-box svg {
+      width: 13px;
+      height: 13px;
+      fill: #FFFFFF;
+    }
+
+    .rating-score {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 480px) {
+      .main-headline {
+        font-size: 25px;
+      }
+
+      .hero-header {
+        padding: 28px 16px 30px;
+      }
+
+      .container {
+        padding: 26px 16px 44px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Strip -->
+  <div class="top-bar">
+    <span class="star">&#9733;</span>
+    <span>3,500+ PEOPLE ALREADY CLAIMED</span>
+    <span class="star">&#9733;</span>
+  </div>
+
+  <!-- Brand Header -->
+  <header class="hero-header">
+    <div class="lego-logo-badge" aria-label="LEGO">
+      <span class="lego-logo-text">LEGO</span>
+    </div>
+    <div class="program-subtitle">LEGO REWARD PROGRAM</div>
+    <div class="member-pill">INSIDERS EXCLUSIVE OFFER</div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <section class="offer-intro">
+      <div class="deal-badge">LEGO INSIDERS DEAL</div>
+      <h1 class="main-headline">Claim your <span class="amount">$500</span> LEGO voucher</h1>
+    </section>
+
+    <!-- Eligibility Status Boxes -->
+    <section class="eligibility-grid" aria-label="Membership Eligibility">
+      <div class="eligibility-card">
+        <div class="eligibility-tier">LEGO INSIDERS</div>
+        <div class="eligibility-status">Eligible</div>
+      </div>
+      <div class="eligibility-card">
+        <div class="eligibility-tier">ALL BUILDERS</div>
+        <div class="eligibility-status">Eligible</div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <div class="section-divider">
+      <span>HOW IT WORKS</span>
+    </div>
+
+    <section class="steps-list" aria-label="Steps to Claim">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-text">Click "Claim Now"</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-text">Enter your email and basic info</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-text">Complete 4–5 sponsored deals</div>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-text">Enjoy your $500 voucher!</div>
+      </div>
+    </section>
+
+    <!-- Primary Call to Action -->
+    <div class="cta-wrapper">
+      <a href="https://linkthem.net/?offer_id=4668&aff_id=9512" class="cta-button">CLAIM NOW</a>
+      <p class="cta-disclaimer">Completion of sponsored deals is required to claim your voucher.</p>
+    </div>
+
+    <!-- Frequently Asked Questions -->
+    <section class="faq-section" aria-label="Frequently Asked Questions">
+      <h2 class="faq-heading">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            <span>How long do the deals take?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            Most sponsored deals take just 2 to 5 minutes each to complete, allowing you to finish your required deals in about 15–20 minutes total.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            <span>What are deals?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            Sponsored deals are promotional offers from partner brands—such as free product trials, mobile apps, streaming subscriptions, or quick surveys.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            <span>How many deals do I have to do?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            You simply need to complete 4–5 sponsored deals of your choice to qualify for your $500 LEGO voucher.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            <span>When will I receive my voucher?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            Once your completed deals are verified, your $500 LEGO digital voucher is sent directly to your email address within 24–48 hours.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust Rating Footer -->
+    <footer class="rating-footer" aria-label="Customer Rating 4.9 out of 5">
+      <span class="rating-label">EXCELLENT</span>
+      <div class="stars-row" aria-hidden="true">
+        <div class="star-box"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="star-box"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="star-box"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="star-box"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="star-box"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      </div>
+      <span class="rating-score">4.9 / 5</span>
+    </footer>
+  </main>
+
+  <script>
+    document.querySelectorAll('.faq-question').forEach((button) => {
+      button.addEventListener('click', () => {
+        const item = button.parentElement;
+        const isOpen = item.classList.contains('open');
+
+        document.querySelectorAll('.faq-item').forEach((other) => {
+          other.classList.remove('open');
+          other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+
+        if (!isOpen) {
+          item.classList.add('open');
+          button.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
